@@ -70,7 +70,9 @@ public class RouteFragment extends BaseFragment implements RouteView {
         }
         ft.addToBackStack(null);
         DialogFragment dialogFragment = new AboutUsView();
-        AboutUsView.getInstance(aboutUsContent);
+        Bundle bundle = new Bundle();
+        bundle.putString("ABOUT_US_CONTENT", aboutUsContent);
+        dialogFragment.setArguments(bundle);
         dialogFragment.show(ft, "dialog");
     }
 

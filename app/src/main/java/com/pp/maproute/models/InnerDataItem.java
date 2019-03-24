@@ -1,8 +1,11 @@
 package com.pp.maproute.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class InnerDataItem {
+public class InnerDataItem implements Parcelable {
 
     @SerializedName("updated_at")
     private String updatedAt;
@@ -58,4 +61,39 @@ public class InnerDataItem {
                         ",content = '" + content + '\'' +
                         "}";
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.updatedAt);
+        dest.writeString(this.createdAt);
+        dest.writeInt(this.id);
+        dest.writeString(this.content);
+    }
+
+    public InnerDataItem() {
+    }
+
+    protected InnerDataItem(Parcel in) {
+        this.updatedAt = in.readString();
+        this.createdAt = in.readString();
+        this.id = in.readInt();
+        this.content = in.readString();
+    }
+
+    public static final Creator<InnerDataItem> CREATOR = new Creator<InnerDataItem>() {
+        @Override
+        public InnerDataItem createFromParcel(Parcel source) {
+            return new InnerDataItem(source);
+        }
+
+        @Override
+        public InnerDataItem[] newArray(int size) {
+            return new InnerDataItem[size];
+        }
+    };
 }

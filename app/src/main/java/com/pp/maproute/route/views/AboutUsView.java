@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.pp.maproute.R;
@@ -54,6 +56,11 @@ public class AboutUsView extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            content = getArguments().getString(ABOUT_US_CONTENT_PARAM);
+            aboutUsContent = Html.fromHtml(Html.fromHtml(content).toString());
+        }
     }
 
     @Override
@@ -61,6 +68,14 @@ public class AboutUsView extends DialogFragment {
         View v = inflater.inflate(R.layout.dialog_about_us, container, false);
 
         ButterKnife.bind(this, v);
+
+        return v;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogStyle);
         Dialog dialog = getDialog();
         if (dialog != null) {
@@ -71,15 +86,9 @@ public class AboutUsView extends DialogFragment {
             dialog.setCancelable(false);
             dialog.setCanceledOnTouchOutside(false);
         }
-
-        if (getArguments() != null) {
-            content = getArguments().getString(ABOUT_US_CONTENT_PARAM);
-            aboutUsContent = Html.fromHtml(Html.fromHtml(content).toString());
-        }
-
+        tvAboutUsContent.setMovementMethod(new ScrollingMovementMethod());
         tvAboutUsContent.setText(aboutUsContent);
 
-        return v;
     }
 
     @OnClick(R.id.iv_about_us_close)
