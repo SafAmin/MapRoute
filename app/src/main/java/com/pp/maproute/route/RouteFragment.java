@@ -5,15 +5,18 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.pp.maproute.R;
 import com.pp.maproute.base.BaseFragment;
 import com.pp.maproute.models.RoutePathItem;
+import com.pp.maproute.route.view.MapView;
 
 import java.util.List;
 
 import butterknife.BindString;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -22,6 +25,8 @@ import butterknife.Unbinder;
  */
 public class RouteFragment extends BaseFragment implements RouteView {
 
+    @BindView(R.id.map_container)
+    MapView mapContainer;
     @BindString(R.string.check_credentials_error)
     String checkCredentialsError;
 
@@ -49,7 +54,7 @@ public class RouteFragment extends BaseFragment implements RouteView {
 
     @Override
     public void invalidateMapWithRoute(List<RoutePathItem> routePathList) {
-
+        mapContainer.setVisibility(View.VISIBLE);
     }
 
     @Override
