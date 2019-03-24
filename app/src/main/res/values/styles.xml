@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="FullScreenDialogStyle" parent="Theme.AppCompat.Dialog">
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorPrimary">@color/colorPrimary</item>
+    </style>
+
 </resources>

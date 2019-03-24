@@ -2,22 +2,26 @@ package com.pp.maproute.route;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.pp.maproute.R;
 import com.pp.maproute.base.BaseFragment;
 import com.pp.maproute.models.RoutePathItem;
-import com.pp.maproute.route.view.MapView;
+import com.pp.maproute.route.views.AboutUsView;
+import com.pp.maproute.route.views.MapView;
 
 import java.util.List;
 
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -52,14 +56,33 @@ public class RouteFragment extends BaseFragment implements RouteView {
         presenter.executeCheckCredentialsService();
     }
 
-    @Override
-    public void invalidateMapWithRoute(List<RoutePathItem> routePathList) {
-        mapContainer.setVisibility(View.VISIBLE);
+    @OnClick(R.id.iv_about_us)
+    public void onClickAboutUs() {
+        presenter.executeAboutUsService();
     }
 
     @Override
-    public void handleError() {
-        Toast.makeText(getActivity(), checkCredentialsError, Toast.LENGTH_SHORT).show();
+    public void invalidateAboutUsDialog(String aboutUsContent) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+        DialogFragment dialogFragment = new AboutUsView();
+        AboutUsView.getInstance(aboutUsContent);
+        dialogFragment.show(ft, "dialog");
+    }
+
+    @Override
+    public void invalidateMapWithRoute(List<RoutePathItem> routePathList) {
+        mapContainer.setVisibility(View.VISIBLE);
+        mapContainer.drawRoute(routePathList);
+    }
+
+    @Override
+    public void handleError(String m) {
+        Toast.makeText(getActivity(), checkCredentialsError + m, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -71,7 +94,7 @@ public class RouteFragment extends BaseFragment implements RouteView {
     public void onDestroyView() {
         super.onDestroyView();
 
-        if(unbinder != null) {
+        if (unbinder != null) {
             unbinder.unbind();
         }
     }

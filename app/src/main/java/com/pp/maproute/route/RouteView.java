@@ -10,7 +10,9 @@ import java.util.List;
  */
 public interface RouteView extends BaseView {
 
+    void invalidateAboutUsDialog(String aboutUsContent);
+
     void invalidateMapWithRoute(List<RoutePathItem> routePathList);
 
-    void handleError();
+    void handleError(String m);
 }

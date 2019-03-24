@@ -2,6 +2,7 @@ package com.pp.maproute.route;
 
 
 import com.pp.maproute.base.BasePresenter;
+import com.pp.maproute.models.AboutUsResponse;
 import com.pp.maproute.models.CheckCredentialsResponse;
 import com.pp.maproute.models.DriverAccountBody;
 import com.pp.maproute.network.MapRouteClient;
@@ -16,7 +17,9 @@ import retrofit2.Response;
  * <p>
  * Created by Safa Amin on 22/03/2019.
  */
-public class RoutePresenter extends BasePresenter<RouteView> {
+class RoutePresenter extends BasePresenter<RouteView> {
+
+    private String token;
 
     RoutePresenter(RouteView view) {
         super(view);
@@ -31,7 +34,7 @@ public class RoutePresenter extends BasePresenter<RouteView> {
             public void onResponse(Call<CheckCredentialsResponse> call,
                                    Response<CheckCredentialsResponse> response) {
                 getView().hideLoadingIndicator();
-
+                token = response.body().getInnerData().getToken();
                 getView().invalidateMapWithRoute(response.body().getInnerData().getUser().getBus().
                         getRoute().getRoutePath());
 
@@ -41,7 +44,7 @@ public class RoutePresenter extends BasePresenter<RouteView> {
             public void onFailure(Call<CheckCredentialsResponse> call, Throwable t) {
                 getView().hideLoadingIndicator();
 
-                getView().handleError();
+                getView().handleError(t.getMessage());
             }
         });
     }
@@ -53,5 +56,27 @@ public class RoutePresenter extends BasePresenter<RouteView> {
         driverAccountBody.setDeviceToken("");
 
         return driverAccountBody;
+    }
+
+    void executeAboutUsService() {
+        getView().showLoadingIndicator();
+        MapRouteServices service = MapRouteClient.getRetrofitInstance().create(MapRouteServices.class);
+        Call<AboutUsResponse> call = service.getAboutUsContent("http://inaclick.online/mtc/aboutus/aboutUs",
+                token);
+
+        call.enqueue(new Callback<AboutUsResponse>() {
+            @Override
+            public void onResponse(Call<AboutUsResponse> call,
+                                   Response<AboutUsResponse> response) {
+                getView().hideLoadingIndicator();
+                getView().invalidateAboutUsDialog(response.body().getInnerData().get(0).getContent());
+            }
+
+            @Override
+            public void onFailure(Call<AboutUsResponse> call, Throwable t) {
+                getView().hideLoadingIndicator();
+                getView().handleError(t.getMessage());
+            }
+        });
     }
 }

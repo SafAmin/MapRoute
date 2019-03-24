@@ -3,7 +3,7 @@ package com.pp.maproute.models;
 public class DriverAccountBody {
 
     private String name;
-    private  String password;
+    private String password;
     private String deviceToken;
 
     public void setName(String name) {

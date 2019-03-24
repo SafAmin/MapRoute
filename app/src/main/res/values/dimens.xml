@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="iv_about_us_width">55dp</dimen>
+    <dimen name="iv_about_us_height">55dp</dimen>
+    <dimen name="iv_about_us_padding">5dp</dimen>
+    <dimen name="iv_about_us_close_width">35dp</dimen>
+    <dimen name="iv_about_us_close_height">35dp</dimen>
+    <dimen name="iv_about_us_close_padding">5dp</dimen>
+    <dimen name="tv_about_us_content_margin_start">5dp</dimen>
+    <dimen name="tv_about_us_content_margin_end">5dp</dimen>
+    <dimen name="tv_about_us_content_margin_bottom">5dp</dimen>
+    <dimen name="tv_about_us_content_text_size">18sp</dimen>
+
+</resources>

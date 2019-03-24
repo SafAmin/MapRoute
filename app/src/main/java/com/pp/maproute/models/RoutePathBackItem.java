@@ -7,56 +7,56 @@ import com.google.gson.annotations.SerializedName;
 
 public class RoutePathBackItem implements Parcelable {
 
-	@SerializedName("lng")
-	private double lng;
+    @SerializedName("lng")
+    private double lng;
 
-	@SerializedName("lat")
-	private double lat;
+    @SerializedName("lat")
+    private double lat;
 
-	public void setLng(double lng){
-		this.lng = lng;
-	}
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
 
-	public double getLng(){
-		return lng;
-	}
+    public double getLng() {
+        return lng;
+    }
 
-	public void setLat(double lat){
-		this.lat = lat;
-	}
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
 
-	public double getLat(){
-		return lat;
-	}
+    public double getLat() {
+        return lat;
+    }
 
-	@Override
-	public int describeContents() {
-		return 0;
-	}
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeDouble(this.lng);
-		dest.writeDouble(this.lat);
-	}
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeDouble(this.lng);
+        dest.writeDouble(this.lat);
+    }
 
-	public RoutePathBackItem() {
-	}
+    public RoutePathBackItem() {
+    }
 
-	protected RoutePathBackItem(Parcel in) {
-		this.lng = in.readDouble();
-		this.lat = in.readDouble();
-	}
+    protected RoutePathBackItem(Parcel in) {
+        this.lng = in.readDouble();
+        this.lat = in.readDouble();
+    }
 
-	public static final Creator<RoutePathBackItem> CREATOR = new Creator<RoutePathBackItem>() {
-		@Override
-		public RoutePathBackItem createFromParcel(Parcel source) {
-			return new RoutePathBackItem(source);
-		}
+    public static final Creator<RoutePathBackItem> CREATOR = new Creator<RoutePathBackItem>() {
+        @Override
+        public RoutePathBackItem createFromParcel(Parcel source) {
+            return new RoutePathBackItem(source);
+        }
 
-		@Override
-		public RoutePathBackItem[] newArray(int size) {
-			return new RoutePathBackItem[size];
-		}
-	};
+        @Override
+        public RoutePathBackItem[] newArray(int size) {
+            return new RoutePathBackItem[size];
+        }
+    };
 }

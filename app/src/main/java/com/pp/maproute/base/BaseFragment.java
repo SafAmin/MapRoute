@@ -6,10 +6,12 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.pp.maproute.R;
+
 /**
  * Parent class for all fragments
  * <p>
- *
+ * <p>
  * Created by Safa Amin on 22/03/2019.
  */
 public abstract class BaseFragment extends Fragment implements BaseView {
@@ -24,7 +26,10 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     @Override
     public void showLoadingIndicator() {
         loadingIndicator = new ProgressDialog(getActivity());
+        loadingIndicator.setMessage(getString(R.string.progress_dialog_message));
         loadingIndicator.show();
+        loadingIndicator.setCancelable(false);
+        loadingIndicator.setCanceledOnTouchOutside(false);
     }
 
     @Override
